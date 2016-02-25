@@ -3,6 +3,7 @@
 namespace TwitterBis\Application\Command;
 
 use TwitterBis\Entity\UserWall;
+use TwitterBis\Formatter\MessageTimeFormatter;
 
 class WallCommand extends AbstractCommand
 {
@@ -17,10 +18,12 @@ class WallCommand extends AbstractCommand
     {
         $user = $this->getUserByName($this->getArgument(self::USER_ARGUMENT_OFFSET));
         $userWall = new UserWall($this->messages, $user);
+        $timeFormatter = new MessageTimeFormatter();
 
         /** @var Message $message */
         foreach ($userWall as $message) {
-            $this->ioHandler->writeLine(sprintf('%s - %s', $message->getText(), $message->getTimestamp()->format('H:i:s')));
+            $time = $timeFormatter->format($message->getTimestamp());
+            $this->ioHandler->writeLine(sprintf('%s %s', $message->getText(), !empty($time) ? "- ($time)" : ''));
         }
     }
 }
