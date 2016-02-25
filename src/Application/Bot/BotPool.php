@@ -53,21 +53,24 @@ class BotPool
      */
     public function findBot($botName)
     {
+        $namespace = 'TwitterBis\\Application\\Bot\\';
         foreach (glob(__DIR__ . "/*Bot.php") as $filename)
         {
-            if ($filename === 'AbstractBot.php') {
+            $className = substr($filename, strrpos($filename, '/') + 1, -strlen('.php'));
+            if ($className === 'AbstractBot') {
                 continue;
             }
 
-            $className = substr($filename, 0, -strlen('.php'));
-            if ($className instanceof AbstractBot) {
-                $bot = new $className($this->user, $this->ioHandler, $this->users, $this->messages);
+            $className = $namespace . $className;
+            $bot = new $className($this->user, $this->ioHandler, $this->users, $this->messages);
+
+            if ($bot instanceof AbstractBot) {
                 if ($bot->getName() === $botName) {
                     return $bot;
                 }
             }
         }
 
-        throw new InvalidBotException(sprintf('Given bot "%s" in invalid', $botName));
+        throw new InvalidBotException(sprintf('Given bot "%s" is invalid', $botName));
     }
 }
