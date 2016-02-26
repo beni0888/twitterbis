@@ -23,7 +23,7 @@ class WallCommand extends AbstractCommand
         /** @var Message $message */
         foreach ($userWall as $message) {
             $time = $timeFormatter->format($message->getTimestamp());
-            $this->ioHandler->writeLine(sprintf('%s %s', $message->getText(), !empty($time) ? "- ($time)" : ''));
+            $this->ioHandler->writeLine(sprintf('%s: %s %s', $message->getAuthor(), $message->getText(), !empty($time) ? "- ($time)" : ''));
         }
     }
 }
