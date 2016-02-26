@@ -20,20 +20,3 @@ while (\TwitterBis\Application\Application::EXIT_COMMAND !== ($userInput = $app-
 }
 
 $ioHandler->writeLine('BYE!');
-
-
-
-
-$ioHandler->writeLine('');
-$ioHandler->writeLine('Users:');
-
-foreach ($userList as $k => $v) {
-//    $ioHandler->writeLine(sprintf('%s => %s', $k, $v));
-    var_dump($v->getFollowedUsers());
-}
-
-$ioHandler->writeLine('Messages:');
-
-foreach ($messageList as $item) {
-    $ioHandler->writeLine($item);
-}
