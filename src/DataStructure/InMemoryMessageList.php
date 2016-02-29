@@ -2,86 +2,57 @@
 
 namespace TwitterBis\DataStructure;
 
-use TwitterBis\Entity\SortableItem;
+use Traversable;
+use TwitterBis\Entity\Message;
 
-class InMemoryMessageList implements SortedListInterface
+class InMemoryMessageList implements MessageListInterface
 {
-    /** @var SortedListInterface */
-    private $messages;
+    /** @var MessageListInterface */
+    private $messageList;
 
     /**
-     * InMemoryMessageList constructor.
-     * @param SortedListInterface $messages
+     * NewInMemoryMessageList constructor.
+     * @param SortedListInterface $messageList
      */
-    public function __construct(SortedListInterface $messages)
+    public function __construct(SortedListInterface $messageList)
     {
-        $this->messages = $messages;
+        $this->messageList = $messageList;
     }
 
     /**
-     * Add a new message to the list.
-     * @param $message
-     * @return $this
+     * Retrieve an external iterator
+     * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
+     * @return Traversable An instance of an object implementing <b>Iterator</b> or
+     * <b>Traversable</b>
+     * @since 5.0.0
      */
-    public function add(SortableItem $message)
+    public function getIterator()
     {
-        $this->messages->add($message);
+        return $this->messageList;
+    }
+
+    /**
+     * Add a message to the list.
+     * @param Message $message
+     * @return MessageListInterface
+     */
+    public function add(Message $message)
+    {
+        $this->messageList->add($message);
         return $this;
     }
 
     /**
-     * Return the current element
-     * @link http://php.net/manual/en/iterator.current.php
-     * @return mixed Can return any type.
-     * @since 5.0.0
-     */
-    public function current()
-    {
-        return $this->messages->current();
-    }
-
-    /**
-     * Move forward to next element
-     * @link http://php.net/manual/en/iterator.next.php
-     * @return void Any returned value is ignored.
-     * @since 5.0.0
+     * Return the next message from the list.
+     * @return Message|NULL
      */
     public function next()
     {
-        $this->messages->next();
-    }
-
-    /**
-     * Return the key of the current element
-     * @link http://php.net/manual/en/iterator.key.php
-     * @return mixed scalar on success, or null on failure.
-     * @since 5.0.0
-     */
-    public function key()
-    {
-        return $this->messages->key();
-    }
-
-    /**
-     * Checks if current position is valid
-     * @link http://php.net/manual/en/iterator.valid.php
-     * @return boolean The return value will be casted to boolean and then evaluated.
-     * Returns true on success or false on failure.
-     * @since 5.0.0
-     */
-    public function valid()
-    {
-        return $this->messages->valid();
-    }
-
-    /**
-     * Rewind the Iterator to the first element
-     * @link http://php.net/manual/en/iterator.rewind.php
-     * @return void Any returned value is ignored.
-     * @since 5.0.0
-     */
-    public function rewind()
-    {
-        $this->messages->rewind();
+        if (!$this->messageList->valid()) {
+            return null;
+        }
+        $message = $this->messageList->current();
+        $this->messageList->next();
+        return $message;
     }
 }

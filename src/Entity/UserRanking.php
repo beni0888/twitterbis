@@ -3,21 +3,22 @@
 namespace TwitterBis\Entity;
 
 use TwitterBis\DataStructure\InMemoryMessageList;
+use TwitterBis\DataStructure\MessageListInterface;
 use TwitterBis\DataStructure\UserSetInterface;
 
 class UserRanking
 {
-    /** @var  InMemoryMessageList */
-    private $messages;
     /** @var UserSetInterface */
     private $users;
+    /** @var  MessageListInterface */
+    private $messages;
 
     /**
      * UserRanking constructor.
      * @param UserSetInterface $users
-     * @param InMemoryMessageList $messages
+     * @param MessageListInterface $messages
      */
-    public function __construct(UserSetInterface $users, InMemoryMessageList $messages)
+    public function __construct(UserSetInterface $users, MessageListInterface $messages)
     {
         $this->users = $users;
         $this->messages = $messages;

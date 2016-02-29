@@ -2,9 +2,9 @@
 
 namespace Entity;
 
-use TwitterBis\DataStructure\InMemoryMessageList;
 use TwitterBis\DataStructure\InMemoryReversedSortedList;
 use TwitterBis\DataStructure\InMemoryUserSet;
+use TwitterBis\DataStructure\InMemoryMessageList;
 use TwitterBis\Entity\Message;
 use TwitterBis\Entity\User;
 use TwitterBis\Entity\UserWall;
@@ -27,7 +27,7 @@ class UserWallTest extends \PHPUnit_Framework_TestCase
 
         $userOne->followUser($userThree);
 
-        $this->sut = new UserWall($messages, $userOne);
+        $this->sut = new UserWall(new \IteratorIterator($messages), $userOne);
         $iteratedMessages = [];
         foreach ($this->sut as $msg) {
             $iteratedMessages[] = $msg;

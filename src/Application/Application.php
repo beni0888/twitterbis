@@ -3,7 +3,7 @@
 namespace TwitterBis\Application;
 
 use TwitterBis\DataStructure\InMemoryUserSet;
-use TwitterBis\DataStructure\SortedListInterface;
+use TwitterBis\DataStructure\MessageListInterface;
 use TwitterBis\DataStructure\UserSetInterface;
 use TwitterBis\Entity\User;
 use TwitterBis\IO\IOHandlerInterface;
@@ -16,16 +16,16 @@ class Application
     private $ioHandler;
     /** @var  UserSetInterface */
     private $users;
-    /** @var  SortedListInterface */
+    /** @var  MessageListInterface */
     private $messages;
 
     /**
      * Application constructor.
      * @param IOHandlerInterface $ioHandler
      * @param UserSetInterface $users
-     * @param SortedListInterface $messages
+     * @param MessageListInterface $messages
      */
-    public function __construct(IOHandlerInterface $ioHandler, UserSetInterface $users, SortedListInterface $messages)
+    public function __construct(IOHandlerInterface $ioHandler, UserSetInterface $users, MessageListInterface $messages)
     {
         $this->ioHandler = $ioHandler;
         $this->users = $users;

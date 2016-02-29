@@ -2,28 +2,39 @@
 
 namespace TwitterBis\Application\Command;
 
-
+use TwitterBis\DataStructure\MessageListInterface;
+use TwitterBis\DataStructure\UserSetInterface;
 use TwitterBis\Exception\InvalidCommandException;
+use TwitterBis\IO\IOHandlerInterface;
 
 class Parser
 {
+    /** @var IOHandlerInterface  */
     private $ioHandler;
+    /** @var UserSetInterface  */
     private $users;
+    /** @var MessageListInterface  */
     private $messages;
 
     /**
      * Parser constructor.
-     * @param $ioHandler
-     * @param $users
-     * @param $messages
+     * @param IOHandlerInterface $ioHandler
+     * @param UserSetInterface $users
+     * @param MessageListInterface $messages
      */
-    public function __construct($ioHandler, $users, $messages)
+    public function __construct(IOHandlerInterface $ioHandler, UserSetInterface $users, MessageListInterface $messages)
     {
         $this->ioHandler = $ioHandler;
         $this->users = $users;
         $this->messages = $messages;
     }
 
+    /**
+     * Parse a string containing a command and return the parsed command.
+     * @param string $line
+     * @return BotCommand|FollowCommand|PostCommand|ReadCommand|WallCommand
+     * @throws InvalidCommandException
+     */
     public function parse($line)
     {
         if (preg_match('/^([^\s]+) -> (.+)$/u', $line, $arguments)) {

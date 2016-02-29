@@ -2,10 +2,9 @@
 
 namespace Entity;
 
-
-use TwitterBis\DataStructure\InMemoryMessageList;
 use TwitterBis\DataStructure\InMemoryReversedSortedList;
 use TwitterBis\DataStructure\InMemoryUserSet;
+use TwitterBis\DataStructure\InMemoryMessageList;
 use TwitterBis\Entity\Message;
 use TwitterBis\Entity\User;
 use TwitterBis\Entity\UserTimeline;
@@ -24,7 +23,7 @@ class UserTimelineTest extends \PHPUnit_Framework_TestCase
         $messages->add($msg2 = new Message('bar', new \DateTime('now', new \DateTimeZone('Europe/Madrid')), $userTwo));
         $messages->add($msg3 = new Message('foo bar', new \DateTime('now', new \DateTimeZone('Europe/Madrid')), $userOne));
 
-        $this->sut = new UserTimeline($messages, $userOne);
+        $this->sut = new UserTimeline(new \IteratorIterator($messages), $userOne);
         $iteratedMessages = [];
         foreach ($this->sut as $msg) {
             $iteratedMessages[] = $msg;

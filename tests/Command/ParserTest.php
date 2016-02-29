@@ -2,9 +2,9 @@
 
 namespace TwitterBis\Application\Command;
 
-use TwitterBis\DataStructure\InMemoryMessageList;
 use TwitterBis\DataStructure\InMemoryReversedSortedList;
 use TwitterBis\DataStructure\InMemoryUserSet;
+use TwitterBis\DataStructure\InMemoryMessageList;
 use TwitterBis\IO\StandardIOHandler;
 
 class ParserTest extends \PHPUnit_Framework_TestCase

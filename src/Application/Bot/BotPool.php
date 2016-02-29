@@ -3,7 +3,7 @@
 namespace TwitterBis\Application\Bot;
 
 
-use TwitterBis\DataStructure\SortedListInterface;
+use TwitterBis\DataStructure\MessageListInterface;
 use TwitterBis\DataStructure\UserSetInterface;
 use TwitterBis\Entity\User;
 use TwitterBis\Exception\InvalidBotException;
@@ -24,7 +24,7 @@ class BotPool
     protected $ioHandler;
     /** @var  UserSetInterface */
     protected $users;
-    /** @var  SortedListInterface */
+    /** @var  MessageListInterface */
     protected $messages;
 
     /**
@@ -32,13 +32,13 @@ class BotPool
      * @param User $user
      * @param IOHandlerInterface $ioHandler
      * @param UserSetInterface $users
-     * @param SortedListInterface $messages
+     * @param MessageListInterface $messages
      */
     public function __construct(
         User $user,
         IOHandlerInterface $ioHandler,
         UserSetInterface $users,
-        SortedListInterface $messages
+        MessageListInterface $messages
     ) {
         $this->user = $user;
         $this->ioHandler = $ioHandler;

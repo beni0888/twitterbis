@@ -17,7 +17,7 @@ class WallCommand extends AbstractCommand
     public function run()
     {
         $user = $this->getUserByName($this->getArgument(self::USER_ARGUMENT_OFFSET));
-        $userWall = new UserWall($this->messages, $user);
+        $userWall = new UserWall(new \IteratorIterator($this->messages), $user);
         $timeFormatter = new MessageTimeFormatter();
 
         /** @var Message $message */

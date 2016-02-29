@@ -19,7 +19,7 @@ class ReadCommand extends AbstractCommand
     public function run()
     {
         $user = $this->getUserByName($this->getArgument(self::USER_ARGUMENT_OFFSET));
-        $userTimeline = new UserTimeline($this->messages, $user);
+        $userTimeline = new UserTimeline(new \IteratorIterator($this->messages), $user);
         $timeFormatter = new MessageTimeFormatter();
 
         /** @var Message $message */

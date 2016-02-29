@@ -2,7 +2,7 @@
 
 namespace TwitterBis\Application\Command;
 
-use TwitterBis\DataStructure\SortedListInterface;
+use TwitterBis\DataStructure\MessageListInterface;
 use TwitterBis\DataStructure\UserSetInterface;
 use TwitterBis\Exception\InvalidUserException;
 use TwitterBis\IO\IOHandlerInterface;
@@ -13,7 +13,7 @@ abstract class AbstractCommand
     protected $ioHandler;
     /** @var  UserSetInterface */
     protected $users;
-    /** @var  SortedListInterface */
+    /** @var  MessageListInterface */
     protected $messages;
     /** @var array */
     private $arguments = [];
@@ -22,10 +22,10 @@ abstract class AbstractCommand
      * AbstractCommand constructor.
      * @param IOHandlerInterface $ioHandler
      * @param UserSetInterface $users
-     * @param SortedListInterface $messages
+     * @param MessageListInterface $messages
      * @param array $arguments
      */
-    public function __construct(IOHandlerInterface $ioHandler, UserSetInterface $users, SortedListInterface $messages, array $arguments)
+    public function __construct(IOHandlerInterface $ioHandler, UserSetInterface $users, MessageListInterface $messages, array $arguments)
     {
         $this->ioHandler = $ioHandler;
         $this->users = $users;
