@@ -2,10 +2,10 @@
 
 namespace TwitterBis\DataStructure;
 
-use Iterator;
+use IteratorAggregate;
 use TwitterBis\Entity\User;
 
-interface UserSetInterface extends Iterator
+interface UserSetInterface extends IteratorAggregate
 {
     /**
      * Add a user
