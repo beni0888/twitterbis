@@ -2,7 +2,6 @@
 
 namespace TwitterBis\Entity;
 
-use TwitterBis\DataStructure\InMemoryMessageList;
 use TwitterBis\DataStructure\MessageListInterface;
 use TwitterBis\DataStructure\UserSetInterface;
 
@@ -53,7 +52,7 @@ class UserRanking
      * Sort the given list descending.
      * @param array $list
      */
-    public function sortUserMessagesCountListDescending(array &$list)
+    private function sortUserMessagesCountListDescending(array &$list)
     {
         arsort($list, SORT_NUMERIC);
     }
