@@ -7,16 +7,5 @@ $messageList = new TwitterBis\DataStructure\InMemoryMessageList(new \TwitterBis\
 $userList = new TwitterBis\DataStructure\InMemoryUserSet();
 $commandParser = new TwitterBis\Application\Command\Parser($ioHandler, $userList, $messageList);
 
-$app = new TwitterBis\Application\Application($ioHandler, $userList, $messageList);
-$app->loadUsers();
-
-while (TwitterBis\Application\Application::EXIT_COMMAND !== ($userInput = $app->readCommand())) {
-    try {
-        $command = $commandParser->parse($userInput);
-        $command->run();
-    } catch (Exception $e) {
-        $ioHandler->writeLine(sprintf('ERROR: %s', $e->getMessage()));
-    }
-}
-
-$ioHandler->writeLine('BYE!');
+$app = new TwitterBis\Application\Application($ioHandler, $userList, $messageList, $commandParser);
+$app->run();
