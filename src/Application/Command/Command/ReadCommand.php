@@ -1,7 +1,6 @@
 <?php
 
-namespace TwitterBis\Application\Command;
-
+namespace TwitterBis\Application\Command\Command;
 
 use TwitterBis\Entity\Message;
 use TwitterBis\Entity\UserTimeline;
@@ -29,5 +28,13 @@ class ReadCommand extends AbstractCommand
         }
     }
 
-
+    /**
+     * Return the regex to match the current command.
+     *
+     * @return string
+     */
+    public static function getMatcher()
+    {
+        return '/^([^\s]+) -> (.+)$/u';
+    }
 }

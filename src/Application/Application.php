@@ -2,7 +2,7 @@
 
 namespace TwitterBis\Application;
 
-use TwitterBis\Application\Command\Parser;
+use TwitterBis\Application\Command\CommandFactory;
 use TwitterBis\DataStructure\InMemoryUserSet;
 use TwitterBis\DataStructure\MessageListInterface;
 use TwitterBis\DataStructure\UserSetInterface;
@@ -13,6 +13,7 @@ use TwitterBis\IO\IOHandlerInterface;
 class Application
 {
     const EXIT_COMMAND = 'exit';
+    const COMMAND_BUILDERS_DIRECTORY = __DIR__ . '/Command/Builder';
 
     /** @var IOHandlerInterface */
     private $ioHandler;
@@ -20,22 +21,22 @@ class Application
     private $users;
     /** @var MessageListInterface */
     private $messages;
-    /** @var Parser */
-    private $commandParser;
+    /** @var CommandFactory */
+    private $commandFactory;
 
     /**
      * Application constructor.
      * @param IOHandlerInterface $ioHandler
      * @param UserSetInterface $users
      * @param MessageListInterface $messages
-     * @param Parser $commandParser
      */
-    public function __construct(IOHandlerInterface $ioHandler, UserSetInterface $users, MessageListInterface $messages, Parser $commandParser)
+    public function __construct(IOHandlerInterface $ioHandler, UserSetInterface $users, MessageListInterface $messages)
     {
         $this->ioHandler = $ioHandler;
         $this->users = $users;
         $this->messages = $messages;
-        $this->commandParser = $commandParser;
+
+        $this->commandFactory = new CommandFactory(self::COMMAND_BUILDERS_DIRECTORY, $this->ioHandler, $this->users, $this->messages);
     }
 
     /**
@@ -68,7 +69,8 @@ class Application
      */
     public function executeCommand($commandString)
     {
-        $this->commandParser->parse($commandString)->run();
+        $command = $this->commandFactory->getCommand($commandString);
+        $command->run();
     }
 
     /**

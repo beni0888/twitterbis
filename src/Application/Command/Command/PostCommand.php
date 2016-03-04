@@ -1,6 +1,6 @@
 <?php
 
-namespace TwitterBis\Application\Command;
+namespace TwitterBis\Application\Command\Command;
 
 use DateTime;
 use DateTimeZone;

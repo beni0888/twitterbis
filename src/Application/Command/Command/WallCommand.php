@@ -1,7 +1,8 @@
 <?php
 
-namespace TwitterBis\Application\Command;
+namespace TwitterBis\Application\Command\Command;
 
+use TwitterBis\Entity\Message;
 use TwitterBis\Entity\UserWall;
 use TwitterBis\Formatter\MessageTimeFormatter;
 

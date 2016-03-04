@@ -1,7 +1,6 @@
 <?php
 
-namespace TwitterBis\Application\Command;
-
+namespace TwitterBis\Application\Command\Command;
 
 class FollowCommand extends AbstractCommand
 {
