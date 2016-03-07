@@ -23,6 +23,6 @@ class InvalidMessageException extends InvalidArgumentException
      */
     public static function tooLong($maxLength, $messageLength)
     {
-        return new static('Invalid message: max message length (%d) exceeded: %d', $maxLength, $messageLength);
+        return new static(sprintf('Invalid message: max length (%d) exceeded: %d', $maxLength, $messageLength));
     }
 }
