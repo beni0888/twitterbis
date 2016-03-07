@@ -16,16 +16,45 @@ class PostCommand extends AbstractCommand
     const MAX_TEXT_LENGTH = 140;
 
     /**
+     * Return the name of the user passed to the command as argument.
+     *
+     * @return string
+     */
+    private function getUserName()
+    {
+        return $this->getArgument(self::USER_ARGUMENT_OFFSET);
+    }
+
+    /**
+     * Return the message text passed to the command as argument.
+     *
+     * @return null
+     */
+    private function getMessageText()
+    {
+        return $this->getArgument(self::MESSAGE_ARGUMENT_OFFSET);
+    }
+
+    /**
+     * Return the current time.
+     *
+     * @return DateTime
+     */
+    private function getCurrentTime()
+    {
+        return new DateTime('now', new DateTimeZone('Europe/Madrid'));
+    }
+
+    /**
      * Run the command.
      * @return mixed
      */
     public function run()
     {
-        $user = $this->getUserByName($this->getArgument(self::USER_ARGUMENT_OFFSET));
-        $text = $this->getArgument(self::MESSAGE_ARGUMENT_OFFSET);
+        $user = $this->getUserByName($this->getUserName());
+        $text = $this->getMessageText();
         $this->validateMessageText($text);
-        $timestamp = new DateTime('now', new DateTimeZone('Europe/Madrid'));
-        $this->publishMessage($user, $text, $timestamp);
+        $this->publishMessage($user, $text, $this->getCurrentTime());
     }
 
     /**
