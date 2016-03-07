@@ -1,47 +1,46 @@
 TwitterBis
 ========================
 
-En Ticketbis queremos montarnos nuestra propia red social (parecida
-a Twitter). La nostalgia ha podido con nosotros y hemos decidio que
-sea una app de consola. La app que se pide debe
-satisfacer los siguientes escenarios:
+TwitterBis is a "Twitter like" command line application. It was requested to me by a company as a technical task during a 
+hiring process. I think it has quite a good object oriented design, although I'm sure it can be still really improved.
+I just want to have it here and keep improving it to show and train my OOP skills.
 
-##Escenarios
+##Scenarios
 
- Publicar: Puedes publicar mensajes en tu muro
+ Publish: You can publish messages in your wall
 ```
-> Jose -> Eso no es paella, es arroz con cosas
-> David -> Las 12h y ya estoy muerto de hambre
-> David -> Alguien se viene al burger?
+> Jose -> This is not paella, it's rice with some stuff
+> David -> It's 12 o'clock and I'm already really hungry!
+> David -> Does someone want to go with me to the burger?
 ```
- Leer: David puede ver el timeline de Jose
+ Read: David is able to read Jose's timeline
 ```
 > Jose
-Eso no es paella, es arroz con cosas (hace 5 minutos)
+This is not paella, it's rice with some stuff (5 minutes ago)
 > David
-Alguien se viene al burger? (hace 1 minuto)
-Las 12h y ya estoy muerto de hambre (hace 2 minutos)
+Does someone want to go with me to the burger? (1 minute ago)
+It's 12 o'clock and I'm already really hungry! (2 minutes ago)
 ```
- Following: Javi puede suscribirse al timeline de David y Jose
+ Following: Javi is able to subscribes itself to David's and Jose's timeline
 ```
 > Javi -> We are hiring!!
 > Javi follows Jose
 > Javi wall
-Javi: We are hiring (hace 3 segundos)
-Jose: Eso no es paella, es arroz con cosas (hace 5 minutos)
+Javi: We are hiring (3 seconds ago)
+Jose: This is not paella, it's rice with some stuff (5 minutes ago)
 
 > Javi follows David
 > Javi wall
 Javi: We are hiring (hace 15 segundos)
-David: Alguien se viene al burger? (hace 1 minuto)
-David: Las 12h y ya estoy muerto de hambre (hace 2 minutos)
-Jose: Eso no es paella, es arroz con cosas (hace 5 minutos)
+David: Does someone want to go with me to the burger? (1 minute ago)
+David: It's 12 o'clock and I'm already really hungry! (2 minutes ago)
+Jose: This is not paella, it's rice with some stuff (5 minutes ago)
 ```
-Interactuar con bots: nuestros desarrolladores podrán ir implementando
-bots a medida que los necesiten, pero para tener alguno desde el principio, 
-se pide implementar el bot ranking, el cual sacara un listado con todos
-los usuarios ordenados por número de mensajes publicados. El usuario que
-lo solicita aparecerá resaltado de la siguiente forma:
+Interacting with bots: our developers will be able to implement bots whenever they 
+need it. Just to have one bot from the very beginning, you have to implement the 
+ranking bot. Ranking bot shows a list with all the available users sorted by the
+number of messages that everyone has published. The user who request the ranking
+is shown highlighted in the following way:  
 ```
 > Javi #ranking
 1. David (2)
@@ -49,9 +48,9 @@ lo solicita aparecerá resaltado de la siguiente forma:
 3. Javi (1) <-
 ```
 
-## Comandos
+## Comands
 
-Todos los comandos empiezan por el nombre del usuario
+Every command starts by the name of the user
 
 * post: <user> -> <message>
 * read: <user>
@@ -59,13 +58,25 @@ Todos los comandos empiezan por el nombre del usuario
 * wall: <user> wall
 * bot: <user> #<bot_name>
 
-## Observaciones:
+## Syste requirements
 
-* Usa el lenguaje en el que te sientas más cómodo.
-* La aplicación debe usar la consola como input y output.
-* **No uses frameworks ni librerías externas (no uses Grails, Rails, Django ni similares. No uses ninguna bbdd). Queremos ver tu código, no el de los frameworks xD.**
-* Valoramos mucho las buenas prácticas de diseño, por lo que ten en cuenta factores como la modularización, extensibilidad, mantenimiento, etc.
-* Comenta tu código cuando lo consideres necesario.
-* Implementa las estructuras de datos y algoritmos más eficientes que se te ocurran.
-* Haznos saber cómo debemos ejecutar tu código.
-* Extra ball: testing es más que bienvenido si te queda tiempo.
+* PHP >= 5.6
+
+## Instructions
+
+1. Clone this repositoty:
+> git clone ...
+2. Install dependencies via composer:
+> cd /path/to/twitterbis
+> php composer.phar install
+3. Execute the application:
+> php src/twitterbis.php
+4. At the very beginning you have to provide the available user. Type one username 
+per line. An empty line will finish the user loading.
+> Javi
+> David
+> Jose
+>
+5. Type the commands you want to execute:
+> Javi -> Hello World!
+6. Type "exit" to finish.
