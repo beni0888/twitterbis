@@ -2,7 +2,6 @@
 
 namespace TwitterBis\Application\Bot;
 
-
 use TwitterBis\DataStructure\MessageListInterface;
 use TwitterBis\DataStructure\UserSetInterface;
 use TwitterBis\Entity\User;
@@ -10,8 +9,8 @@ use TwitterBis\Exception\InvalidBotException;
 use TwitterBis\IO\IOHandlerInterface;
 
 /**
- * Implementando la instanciación de los bots de este modo respetamos el principio Open-Closed y permitimos añadir
- * nueva funcionalidad sin modificar la existente.
+ * With this implementation we respect the Open-Closed SOLID principle. It allows us to add new bots without modifying
+ * the already existing logic.
  *
  * Class BotPool
  * @package TwitterBis\Application\Bot
@@ -48,8 +47,9 @@ class BotPool
 
     /**
      * Find and return an instance of a boot.
-     * @param $botName
-     * @return mixed
+     * @param string $botName
+     * @return AbstractBot
+     * @throws InvalidBotException
      */
     public function findBot($botName)
     {
@@ -64,13 +64,11 @@ class BotPool
             $className = $namespace . $className;
             $bot = new $className($this->user, $this->ioHandler, $this->users, $this->messages);
 
-            if ($bot instanceof AbstractBot) {
-                if ($bot->getName() === $botName) {
-                    return $bot;
-                }
+            if (($bot instanceof AbstractBot) && ($bot->getName() === $botName)) {
+                return $bot;
             }
         }
 
-        throw new InvalidBotException(sprintf('Given bot "%s" is invalid', $botName));
+        throw InvalidBotException::unknownBot($botName);
     }
 }

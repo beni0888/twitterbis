@@ -2,7 +2,6 @@
 
 namespace TwitterBis\Application\Command;
 
-
 use TwitterBis\Application\Command\Builder\AbstractCommandBuilder;
 use TwitterBis\DataStructure\MessageListInterface;
 use TwitterBis\DataStructure\UserSetInterface;
@@ -61,6 +60,7 @@ class CommandFactory
      *
      * @param $commandString
      * @return Command\AbstractCommand
+     * @throws InvalidCommandException
      */
     public function getCommand($commandString)
     {
@@ -70,6 +70,6 @@ class CommandFactory
                 return $command;
             }
         }
-        throw new InvalidCommandException(sprintf('Invalid command: "%s"', $commandString));
+        throw InvalidCommandException::unknownCommand($commandString);
     }
 }

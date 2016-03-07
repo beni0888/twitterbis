@@ -54,7 +54,7 @@ abstract class AbstractCommand
     protected function getUserByName($userName)
     {
         if (!$user = $this->users->findByName($userName)) {
-            throw new InvalidUserException(sprintf("The given user '%s' does not exists", $userName));
+            throw InvalidUserException::unknownUser($userName);
         }
         return $user;
     }

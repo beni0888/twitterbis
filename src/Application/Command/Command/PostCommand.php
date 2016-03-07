@@ -35,10 +35,10 @@ class PostCommand extends AbstractCommand
     private function validateMessageText($text)
     {
         if (empty($text)) {
-            throw new InvalidMessageException('Empty messages are not allowed');
+            throw InvalidMessageException::emptyMessage();
         }
         if ($messageLength = mb_strlen($text, 'utf-8') > self::MAX_TEXT_LENGTH) {
-            throw new InvalidMessageException(sprintf('Max message length (%d) exceeded: %d', self::MAX_TEXT_LENGTH, $messageLength));
+            throw InvalidMessageException::tooLong(self::MAX_TEXT_LENGTH, $messageLength);
         }
     }
 
