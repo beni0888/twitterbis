@@ -65,18 +65,28 @@ Every command starts by the name of the user
 ## Instructions
 
 1. Clone this repositoty:
-> git clone ...
+```
+> git clone git@github.com:beni0888/twitterbis.git
+``` 
 2. Install dependencies via composer:
+```
 > cd /path/to/twitterbis
 > php composer.phar install
+```
 3. Execute the application:
+```
 > php src/twitterbis.php
+```
 4. At the very beginning you have to provide the available user. Type one username 
 per line. An empty line will finish the user loading.
+```
 > Javi
 > David
 > Jose
 >
+```
 5. Type the commands you want to execute:
+```
 > Javi -> Hello World!
+```
 6. Type "exit" to finish.
