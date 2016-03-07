@@ -3,6 +3,8 @@
 namespace TwitterBis\Application;
 
 use TwitterBis\Application\Command\CommandFactory;
+use TwitterBis\DataStructure\InMemoryMessageList;
+use TwitterBis\DataStructure\InMemoryReversedSortedList;
 use TwitterBis\DataStructure\InMemoryUserSet;
 use TwitterBis\DataStructure\MessageListInterface;
 use TwitterBis\DataStructure\UserSetInterface;
@@ -10,6 +12,7 @@ use TwitterBis\Entity\User;
 use TwitterBis\Exception\InvalidArgumentException;
 use TwitterBis\Exception\InvalidCommandException;
 use TwitterBis\IO\IOHandlerInterface;
+use TwitterBis\IO\StandardIOHandler;
 
 class Application
 {
@@ -27,17 +30,46 @@ class Application
 
     /**
      * Application constructor.
-     * @param IOHandlerInterface $ioHandler
-     * @param UserSetInterface $users
-     * @param MessageListInterface $messages
      */
-    public function __construct(IOHandlerInterface $ioHandler, UserSetInterface $users, MessageListInterface $messages)
+    public function __construct()
     {
-        $this->ioHandler = $ioHandler;
-        $this->users = $users;
-        $this->messages = $messages;
+        $this->ioHandler = new StandardIOHandler();
+        $this->users = new InMemoryUserSet();
+        $this->messages = new InMemoryMessageList(new InMemoryReversedSortedList());
 
         $this->commandFactory = new CommandFactory(self::COMMAND_BUILDERS_DIRECTORY, $this->ioHandler, $this->users, $this->messages);
+    }
+
+    /**
+     * @param IOHandlerInterface $ioHandler
+     */
+    public function setIoHandler($ioHandler)
+    {
+        $this->ioHandler = $ioHandler;
+    }
+
+    /**
+     * @param UserSetInterface $users
+     */
+    public function setUsers($users)
+    {
+        $this->users = $users;
+    }
+
+    /**
+     * @param MessageListInterface $messages
+     */
+    public function setMessages($messages)
+    {
+        $this->messages = $messages;
+    }
+
+    /**
+     * @param CommandFactory $commandFactory
+     */
+    public function setCommandFactory($commandFactory)
+    {
+        $this->commandFactory = $commandFactory;
     }
 
     /**
