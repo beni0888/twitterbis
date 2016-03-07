@@ -7,6 +7,7 @@ use TwitterBis\DataStructure\InMemoryUserSet;
 use TwitterBis\DataStructure\MessageListInterface;
 use TwitterBis\DataStructure\UserSetInterface;
 use TwitterBis\Entity\User;
+use TwitterBis\Exception\InvalidArgumentException;
 use TwitterBis\Exception\InvalidCommandException;
 use TwitterBis\IO\IOHandlerInterface;
 
@@ -83,7 +84,7 @@ class Application
         while (self::EXIT_COMMAND !== ($command = $this->readCommandFromInput())) {
             try {
                 $this->executeCommand($command);
-            } catch (\Exception $e) {
+            } catch (InvalidArgumentException $e) {
                 $this->ioHandler->writeLine(sprintf('ERROR: %s', $e->getMessage()));
             }
         }

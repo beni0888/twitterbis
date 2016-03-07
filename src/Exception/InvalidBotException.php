@@ -2,7 +2,7 @@
 
 namespace TwitterBis\Exception;
 
-class InvalidBotException extends \InvalidArgumentException
+class InvalidBotException extends InvalidArgumentException
 {
 
 }

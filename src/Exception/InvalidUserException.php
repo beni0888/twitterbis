@@ -2,8 +2,7 @@
 
 namespace TwitterBis\Exception;
 
-
-class InvalidUserException extends \InvalidArgumentException
+class InvalidUserException extends InvalidArgumentException
 {
 
 }
