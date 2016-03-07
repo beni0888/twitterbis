@@ -6,14 +6,12 @@ use DateTime;
 use DateTimeZone;
 use TwitterBis\Entity\Message;
 use TwitterBis\Entity\User;
-use TwitterBis\Exception\InvalidMessageException;
 
 class PostCommand extends AbstractCommand
 {
     const NAME = 'POST';
     const USER_ARGUMENT_OFFSET = 0;
     const MESSAGE_ARGUMENT_OFFSET = 1;
-    const MAX_TEXT_LENGTH = 140;
 
     /**
      * Return the name of the user passed to the command as argument.
@@ -53,22 +51,7 @@ class PostCommand extends AbstractCommand
     {
         $user = $this->getUserByName($this->getUserName());
         $text = $this->getMessageText();
-        $this->validateMessageText($text);
         $this->publishMessage($user, $text, $this->getCurrentTime());
-    }
-
-    /**
-     * Validate the message text.
-     * @param string $text
-     */
-    private function validateMessageText($text)
-    {
-        if (empty($text)) {
-            throw InvalidMessageException::emptyMessage();
-        }
-        if ($messageLength = mb_strlen($text, 'utf-8') > self::MAX_TEXT_LENGTH) {
-            throw InvalidMessageException::tooLong(self::MAX_TEXT_LENGTH, $messageLength);
-        }
     }
 
     /**
