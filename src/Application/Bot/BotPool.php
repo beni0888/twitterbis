@@ -17,6 +17,8 @@ use TwitterBis\IO\IOHandlerInterface;
  */
 class BotPool
 {
+    const BOT_NAMESPACE = 'TwitterBis\Application\Bot';
+
     /** @var User */
     protected $user;
     /** @var  IOHandlerInterface */
@@ -28,6 +30,7 @@ class BotPool
 
     /**
      * AbstractCommand constructor.
+     *
      * @param User $user
      * @param IOHandlerInterface $ioHandler
      * @param UserSetInterface $users
@@ -46,14 +49,14 @@ class BotPool
     }
 
     /**
-     * Find and return an instance of a boot.
+     * Return an instance of the bot that matches the given bot name.
+     *
      * @param string $botName
      * @return AbstractBot
      * @throws InvalidBotException
      */
     public function findBot($botName)
     {
-        $namespace = 'TwitterBis\\Application\\Bot\\';
         foreach (glob(__DIR__ . "/*Bot.php") as $filename)
         {
             $className = substr($filename, strrpos($filename, '/') + 1, -strlen('.php'));
@@ -61,7 +64,7 @@ class BotPool
                 continue;
             }
 
-            $className = $namespace . $className;
+            $className = self::BOT_NAMESPACE . '\\' . $className;
             $bot = new $className($this->user, $this->ioHandler, $this->users, $this->messages);
 
             if (($bot instanceof AbstractBot) && ($bot->getName() === $botName)) {
